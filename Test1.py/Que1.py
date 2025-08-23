@@ -6,6 +6,6 @@ Area = l * b + (1/2 * 22/7 * (r ** r))
 
 print(f'Area of figure is : {Area}')
 
-Perimeter = 2 * (l + b) + (22/7 * r + (2 * r))
+Perimeter = 2 * l + b + (22/7 * r )
 
 print(f'Perimeter of figure is : {Perimeter}')
