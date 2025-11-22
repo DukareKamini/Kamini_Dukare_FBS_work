@@ -1,0 +1,345 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| countries       |
+| department      |
+| departments     |
+| dept            |
+| emp             |
+| employee        |
+| employees       |
+| job_histry      |
+| jobs            |
+| room            |
+| student         |
++-----------------+
+11 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_id   | decimal(4,0) | NO   | PRI | NULL    |       |
+| department_name | varchar(30)  | NO   |     | NULL    |       |
+| manager_id      | decimal(6,0) | NO   | PRI | NULL    |       |
+| location_id     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dno      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | location |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | mumbai   |
+|   3 | HR    | nagpur   |
++-----+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 121 | sakshi  |  22000 | pune    |    2 | NULL | F      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 126 | dipika  |  26000 | pune    |    2 | NULL | NULL   | 2025-01-15 |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from emp where dno = 2;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> table emp
+    -> ;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
++-----+---------+--------+---------+------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into emp(name, dno, age) values("sakshi", 2, 22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(name, dno, age) values("dipika", 2, 20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    |    2 |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    |    2 |   20 | NULL   | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> show craete table emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'craete table emp' at line 1
+mysql> show create table emp;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `eid` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+  `salary` int DEFAULT NULL,
+  `address` varchar(20) DEFAULT 'pune',
+  `dno` int DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `j_date` date DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  KEY `dno` (`dno`),
+  CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`),
+  CONSTRAINT `emp_chk_1` CHECK ((`salary` > 10000))
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> delete from dept where name = "Admin";
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`aug25`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`))
+mysql> alter table dept
+    -> drop constraint emp_ibfk_1;
+ERROR 3940 (HY000): Constraint 'emp_ibfk_1' does not exist.
+mysql> alter table dept
+    -> drop constraint _ibfk_1;
+ERROR 3940 (HY000): Constraint '_ibfk_1' does not exist.
+mysql> alter table dept
+    -> drop constraint emp_ibfk_1;
+ERROR 3940 (HY000): Constraint 'emp_ibfk_1' does not exist.
+mysql> alter table dept
+    -> drop constraint ibfk_1;
+ERROR 3940 (HY000): Constraint 'ibfk_1' does not exist.
+mysql> alter table emp
+    -> drop constraint emp_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    |    2 |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    |    2 |   20 | NULL   | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> show create table emp;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `eid` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+  `salary` int DEFAULT NULL,
+  `address` varchar(20) DEFAULT 'pune',
+  `dno` int DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `j_date` date DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  KEY `dno` (`dno`),
+  CONSTRAINT `emp_chk_1` CHECK ((`salary` > 10000))
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table emp
+    -> add foreign key(dno)
+    -> references dept(dno)
+    -> on delete set null;
+Query OK, 9 rows affected (0.05 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> delete from dept where name = "admin";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table dept;
++-----+------+----------+
+| dno | name | location |
++-----+------+----------+
+|   1 | IT   | pune     |
+|   3 | HR   | nagpur   |
++-----+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    | NULL |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    | NULL |   20 | NULL   | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into dept values(2, "Admin", "Mumbai");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | location |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | Mumbai   |
+|   3 | HR    | nagpur   |
++-----+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> drop constraint emp_ibfk_1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp
+    -> add foreign key(dno)
+    -> references dept(dno)
+    -> on delete set null
+    -> on update set null;
+Query OK, 9 rows affected (0.05 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | location |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | Mumbai   |
+|   3 | HR    | nagpur   |
++-----+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    | NULL |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    | NULL |   20 | NULL   | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from dept where name = "admin";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table dept;
++-----+------+----------+
+| dno | name | location |
++-----+------+----------+
+|   1 | IT   | pune     |
+|   3 | HR   | nagpur   |
++-----+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    | NULL |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    | NULL |   20 | NULL   | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into dept values(2, "Admin", "Mumbai");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(name, dno, gender) values("mukti", 2, 'F');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table emp;
++-----+---------+--------+---------+------+------+--------+------------+
+| eid | name    | salary | address | dno  | age  | gender | j_date     |
++-----+---------+--------+---------+------+------+--------+------------+
+| 101 | Riya    |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay    |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj     |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay   |  20000 | pune    |    3 | NULL | M      | NULL       |
+| 122 | shyam   |  18000 | nagpur  |    3 |   26 | M      | 2024-05-12 |
+| 123 | Neha    |  24000 | pune    | NULL | NULL | F      | 2024-10-02 |
+| 124 | shubham |  24000 | pune    | NULL |   25 | M      | 2024-10-02 |
+| 127 | sakshi  |   NULL | pune    | NULL |   22 | NULL   | NULL       |
+| 128 | dipika  |   NULL | pune    | NULL |   20 | NULL   | NULL       |
+| 129 | mukti   |   NULL | pune    |    2 | NULL | F      | NULL       |
++-----+---------+--------+---------+------+------+--------+------------+
+10 rows in set (0.00 sec)
+
+mysql> table dept;
++-----+-------+----------+
+| dno | name  | location |
++-----+-------+----------+
+|   1 | IT    | pune     |
+|   2 | Admin | Mumbai   |
+|   3 | HR    | nagpur   |
++-----+-------+----------+
+3 rows in set (0.00 sec)

@@ -1,0 +1,751 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| aug25              |
+| fbs                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| employee        |
+| room            |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | YES  |     | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(7)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column address varchar(20);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | YES  |     | NULL    |       |
+| name    | varchar(15) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(7)     | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column deptname varchar(10),
+    -> add column prjId int;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| prjId    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column salary float(7,2);
+Query OK, 0 rows affected, 1 warning (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| prjId    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column email_id varchar(25)
+    -> first;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| email_id | varchar(25) | YES  |     | NULL    |       |
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| prjId    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column gender char(1)
+    -> after address;
+ERROR 1060 (42S21): Duplicate column name 'gender'
+mysql> alter table employee
+    -> add column prjName varchar(20)
+    -> after gender;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| email_id | varchar(25) | YES  |     | NULL    |       |
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| prjName  | varchar(20) | YES  |     | NULL    |       |
+| address  | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| prjId    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> change column address city varchar(20);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| email_id | varchar(25) | YES  |     | NULL    |       |
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| prjName  | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| prjId    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop column prjid;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| email_id | varchar(25) | YES  |     | NULL    |       |
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| gender   | char(7)     | YES  |     | NULL    |       |
+| prjName  | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop column prjname,
+    -> drop column gender,
+    -> drop column email_id;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
+table student:
+
+mysql> create table student(
+    -> RollNo int,
+    -> name varchar(15),
+    -> address varchar(25),
+    -> percentage float(5,2));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add column marks int,
+    -> add column mobNo int;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| marks      | int         | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify column percentage int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| marks      | int         | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add column email_id varchar(20)
+    -> first;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| marks      | int         | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add column gender
+    -> after address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after address' at line 3
+mysql> alter table student
+    -> add column gender char(1)
+    -> after address;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| marks      | int         | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> drop column marks;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> modify column percentage float(5,2);
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql>
+
+using constraints:
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| employee        |
+| room            |
+| student         |
++-----------------+
+3 rows in set (0.01 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | YES  |     | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student
+    -> add primary key (rollNo);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | NO   | PRI | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into student(rollNo, name, percentage) values(101, "Riya", 78);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  |     | NULL    |       |
+| RollNo     | int         | NO   | PRI | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> table student;
++----------+--------+------+---------+--------+------------+-------+
+| email_id | RollNo | name | address | gender | percentage | mobNo |
++----------+--------+------+---------+--------+------------+-------+
+| NULL     |    101 | Riya | NULL    | NULL   |      78.00 |  NULL |
++----------+--------+------+---------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> alter table student
+    -> modify column email_id varchar(20) unique;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| email_id   | varchar(20) | YES  | UNI | NULL    |       |
+| RollNo     | int         | NO   | PRI | NULL    |       |
+| name       | varchar(15) | YES  |     | NULL    |       |
+| address    | varchar(25) | YES  |     | NULL    |       |
+| gender     | char(1)     | YES  |     | NULL    |       |
+| percentage | float(5,2)  | YES  |     | NULL    |       |
+| mobNo      | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> table student;
++----------+--------+------+---------+--------+------------+-------+
+| email_id | RollNo | name | address | gender | percentage | mobNo |
++----------+--------+------+---------+--------+------------+-------+
+| NULL     |    101 | Riya | NULL    | NULL   |      78.00 |  NULL |
++----------+--------+------+---------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> alter table student
+    -> insert into student(rollNo, email_id) values(102, s@gmail.com);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into student(rollNo, email_id) values(102, s@gmail.com)' at line 2
+mysql> alter table student
+    -> modify column name varchar(20) not null;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into student(rollNo, email_id) values(102, s@gmail.com);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@gmail.com)' at line 1
+mysql> table student;
++----------+--------+------+---------+--------+------------+-------+
+| email_id | RollNo | name | address | gender | percentage | mobNo |
++----------+--------+------+---------+--------+------------+-------+
+| NULL     |    101 | Riya | NULL    | NULL   |      78.00 |  NULL |
++----------+--------+------+---------+--------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into student(rollNo, email_id) values(102, "s@gmail.com");
+ERROR 1364 (HY000): Field 'name' doesn't have a default value
+mysql> insert into student(rollNo, name, email_id) values(102, "siya", "siya@gmail.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table student;
++----------------+--------+------+---------+--------+------------+-------+
+| email_id       | RollNo | name | address | gender | percentage | mobNo |
++----------------+--------+------+---------+--------+------------+-------+
+| NULL           |    101 | Riya | NULL    | NULL   |      78.00 |  NULL |
+| siya@gmail.com |    102 | siya | NULL    | NULL   |       NULL |  NULL |
++----------------+--------+------+---------+--------+------------+-------+
+2 rows in set (0.00 sec)
+
+using constraint table Employee:
+
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| employee        |
+| room            |
+| student         |
++-----------------+
+3 rows in set (0.02 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table employee
+    -> add primary key (eid)
+    -> ;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> table employee;
+Empty set (0.00 sec)
+
+mysql> insert into employee(eid, name, salary) values(101, "Riya", 30000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> table employee;
++-----+------+----------+------+----------+
+| eid | name | salary   | city | deptname |
++-----+------+----------+------+----------+
+| 101 | Riya | 30000.00 | NULL | NULL     |
++-----+------+----------+------+----------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column city varchar(10) unique;
+Query OK, 1 row affected (0.06 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++-----+------+----------+------+----------+
+| eid | name | salary   | city | deptname |
++-----+------+----------+------+----------+
+| 101 | Riya | 30000.00 | NULL | NULL     |
++-----+------+----------+------+----------+
+1 row in set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(15) | YES  |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  | UNI | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column varchar(15) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(15) not null' at line 2
+mysql> modify column name varchar(15) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify column name varchar(15) not null' at line 1
+mysql> modify column name varchar(15) not null;
+mysql> alter table employee
+    -> modify column name varchar(15) not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(15) | NO   |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  | UNI | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employee(eid, name, salary) values(101, 30000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee(eid, name, salary) values(101, "Riya", 30000);
+ERROR 1062 (23000): Duplicate entry '101' for key 'employee.PRIMARY'
+mysql> insert into employee(eid, name, salary) values(121, "Riya", 30000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(15) | NO   |     | NULL    |       |
+| salary   | float(7,2)  | YES  |     | NULL    |       |
+| city     | varchar(10) | YES  | UNI | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> table employee;
++-----+------+----------+------+----------+
+| eid | name | salary   | city | deptname |
++-----+------+----------+------+----------+
+| 101 | Riya | 30000.00 | NULL | NULL     |
+| 121 | Riya | 30000.00 | NULL | NULL     |
++-----+------+----------+------+----------+
+2 rows in set (0.00 sec)
+
+applying constraint at the time of table creation:
+
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| dept            |
+| employee        |
+| room            |
+| student         |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dno      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table emp(
+    -> eid int primary key,
+    -> name varchar(15) not null,
+    -> salary int check (salary > 10000),
+    -> mobno int unique,
+    -> address varchar(20) dafault "pune",
+    -> dno int,
+    -> foreign key(dno)
+    -> references dept(dno)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dafault "pune",
+dno int,
+foreign key(dno)
+references dept(dno)
+)' at line 6
+mysql> create table emp(
+    -> eid int primary key,
+    -> name varchar(15) not null,
+    -> salary int check (salary > 10000),
+    -> mobno int unique,
+    -> address varchar(20) default "pune",
+    -> dno int,
+    -> foreign key(dno),
+    -> references dept(dno)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+references dept(dno)
+)' at line 8
+mysql> create table emp(
+    -> eid int primary key,
+    -> name varchar(15) not null,
+    -> salary int check (salary > 10000),
+    -> mobno int unique,
+    -> address varchar(20) default "pune",
+    -> dno int,
+    -> foreign key(dno),
+    -> references dept(dno),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+references dept(dno),
+)' at line 8
+mysql> create table emp(
+    -> eid int primary key,
+    -> name varchar(15) not null,
+    -> salary int check (salary > 10000),
+    -> mobno int unique,
+    -> address varchar(20) default "pune",
+    -> dno int,
+    -> foreign key(dno) references dept(dno)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | int         | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+
+

@@ -1,0 +1,404 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use aug25;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| countries       |
+| department      |
+| dept            |
+| emp             |
+| employee        |
+| job_histry      |
+| jobs            |
+| room            |
+| student         |
++-----------------+
+9 rows in set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | int         | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> show create table emp;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `eid` int NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `salary` int DEFAULT NULL,
+  `mobno` int DEFAULT NULL,
+  `address` varchar(20) DEFAULT 'pune',
+  `dno` int DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  UNIQUE KEY `mobno` (`mobno`),
+  KEY `dno` (`dno`),
+  CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`),
+  CONSTRAINT `emp_chk_1` CHECK ((`salary` > 10000))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table emp
+    -> add column age int,
+    -> add column j_date;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> alter table emp
+    -> add column age int,
+    -> add column j_date date;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | int         | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> add column gender char(1)
+    -> after age;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | int         | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> insert into emp values
+    -> (101, "Riya", 25000, 9850124456, "pune", 1,)
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 2
+mysql> insert into emp values
+    -> (101, "Riya", 25000, 9850124456, "pune", 1, 23, 'F', "2023-02-23");
+ERROR 1264 (22003): Out of range value for column 'mobno' at row 1
+mysql> alter table emp
+    -> modify column mobno bigint;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | bigint      | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> insert into emp values
+    -> (101, "Riya", 25000, 9850124456, "pune", 1, 23, 'F', "2023-02-23");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`aug25`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `dept` (`dno`))
+mysql> show tables;
++-----------------+
+| Tables_in_aug25 |
++-----------------+
+| countries       |
+| department      |
+| dept            |
+| emp             |
+| employee        |
+| job_histry      |
+| jobs            |
+| room            |
+| student         |
++-----------------+
+9 rows in set (0.00 sec)
+
+mysql> alter table dept
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dno      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into dept values
+    -> (1, "IT", pune),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> insert into dept values
+    -> (1, "IT", "pune"),
+    -> (2, "Admin", "mumbai");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc dept;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dno      | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values
+    -> (101, "Riya", 25000, 9850124456, "pune", 1, 23, 'F', "2023-02-23");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(15) | NO   |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| mobno   | bigint      | YES  | UNI | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+------+--------+------------+---------+------+------+--------+------------+
+| eid | name | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
++-----+------+--------+------------+---------+------+------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values
+    -> (101, "ajay", 25000, 9850124456, "pune", 1, 23, 'M', "2023-32-20");
+ERROR 1292 (22007): Incorrect date value: '2023-32-20' for column 'j_date' at row 1
+mysql> insert into emp values
+    -> (101, "ajay", 25000, 9850124456, "pune", 1, 23, 'M', "2023-02-20");
+ERROR 1062 (23000): Duplicate entry '101' for key 'emp.PRIMARY'
+mysql> insert into emp values
+    -> (102, "ajay", 25000, 9850124456, "pune", 1, 23, 'M', "2023-02-20");
+ERROR 1062 (23000): Duplicate entry '9850124456' for key 'emp.mobno'
+mysql> insert into emp values
+    -> (102, "ajay", 25000, 9850125656, "pune", 1, 23, 'M', "2023-02-20");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table emp;
++-----+------+--------+------------+---------+------+------+--------+------------+
+| eid | name | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
++-----+------+--------+------------+---------+------+------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp (eid, name, address) values(102, "Raj", "mumbai");
+ERROR 1062 (23000): Duplicate entry '102' for key 'emp.PRIMARY'
+mysql> insert into emp (eid, name, address) values(103, "Raj", "mumbai");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table emp;
++-----+------+--------+------------+---------+------+------+--------+------------+
+| eid | name | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj  |   NULL |       NULL | mumbai  | NULL | NULL | NULL   | NULL       |
++-----+------+--------+------------+---------+------+------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp(eid, name, salary, dno) values(111, "Abhay", 20000, 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(eid, name, salary, dno) values(121, "sakshi", 22000, 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table emp;
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| eid | name   | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL |       NULL | mumbai  | NULL | NULL | NULL   | NULL       |
+| 111 | Abhay  |  20000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 121 | sakshi |  22000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> alter table emp
+    -> modify column eid int auto_increment;
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(15) | NO   |     | NULL    |                |
+| salary  | int         | YES  |     | NULL    |                |
+| mobno   | bigint      | YES  | UNI | NULL    |                |
+| address | varchar(20) | YES  |     | pune    |                |
+| dno     | int         | YES  | MUL | NULL    |                |
+| age     | int         | YES  |     | NULL    |                |
+| gender  | char(1)     | YES  |     | NULL    |                |
+| j_date  | date        | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into emp values(122, "shyam", 18000, 5623417856, "nagpur", 1, 26, 'M', "2024-05-12");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table emp;
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| eid | name   | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL |       NULL | mumbai  | NULL | NULL | NULL   | NULL       |
+| 111 | Abhay  |  20000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 121 | sakshi |  22000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 122 | shyam  |  18000 | 5623417856 | nagpur  |    1 |   26 | M      | 2024-05-12 |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp (name, gender) values ("Neha", 'F');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table emp;
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| eid | name   | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL |       NULL | mumbai  | NULL | NULL | NULL   | NULL       |
+| 111 | Abhay  |  20000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 121 | sakshi |  22000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 122 | shyam  |  18000 | 5623417856 | nagpur  |    1 |   26 | M      | 2024-05-12 |
+| 123 | Neha   |   NULL |       NULL | pune    | NULL | NULL | F      | NULL       |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> update emp set gender = 'F' where name = "sakshi";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table emp;
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| eid | name   | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL |       NULL | mumbai  | NULL | NULL | NULL   | NULL       |
+| 111 | Abhay  |  20000 |       NULL | pune    |    2 | NULL | NULL   | NULL       |
+| 121 | sakshi |  22000 |       NULL | pune    |    2 | NULL | F      | NULL       |
+| 122 | shyam  |  18000 | 5623417856 | nagpur  |    1 |   26 | M      | 2024-05-12 |
+| 123 | Neha   |   NULL |       NULL | pune    | NULL | NULL | F      | NULL       |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> update emp set gender = 'M' where eid = 103 or eid = 111;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table emp;
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| eid | name   | salary | mobno      | address | dno  | age  | gender | j_date     |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | 9850124456 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | 9850125656 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL |       NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay  |  20000 |       NULL | pune    |    2 | NULL | M      | NULL       |
+| 121 | sakshi |  22000 |       NULL | pune    |    2 | NULL | F      | NULL       |
+| 122 | shyam  |  18000 | 5623417856 | nagpur  |    1 |   26 | M      | 2024-05-12 |
+| 123 | Neha   |   NULL |       NULL | pune    | NULL | NULL | F      | NULL       |
++-----+--------+--------+------------+---------+------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp
+    -> drop column mobno;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(15) | NO   |     | NULL    |                |
+| salary  | int         | YES  |     | NULL    |                |
+| address | varchar(20) | YES  |     | pune    |                |
+| dno     | int         | YES  | MUL | NULL    |                |
+| age     | int         | YES  |     | NULL    |                |
+| gender  | char(1)     | YES  |     | NULL    |                |
+| j_date  | date        | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> table emp;
++-----+--------+--------+---------+------+------+--------+------------+
+| eid | name   | salary | address | dno  | age  | gender | j_date     |
++-----+--------+--------+---------+------+------+--------+------------+
+| 101 | Riya   |  25000 | pune    |    1 |   23 | F      | 2023-02-23 |
+| 102 | ajay   |  25000 | pune    |    1 |   23 | M      | 2023-02-20 |
+| 103 | Raj    |   NULL | mumbai  | NULL | NULL | M      | NULL       |
+| 111 | Abhay  |  20000 | pune    |    2 | NULL | M      | NULL       |
+| 121 | sakshi |  22000 | pune    |    2 | NULL | F      | NULL       |
+| 122 | shyam  |  18000 | nagpur  |    1 |   26 | M      | 2024-05-12 |
+| 123 | Neha   |   NULL | pune    | NULL | NULL | F      | NULL       |
++-----+--------+--------+---------+------+------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql>
