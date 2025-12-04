@@ -112,6 +112,61 @@ mysql> select employee_id, first_name, last_name, salary from employees
 10 rows in set (0.00 sec)
 
 
+Q6. Write a query to get the total salaries payable to employees.
+
+mysql> select sum(salary) "Total Salary" from employees;
++--------------+
+| Total Salary |
++--------------+
+|    118580.00 |
++--------------+
+1 row in set (0.00 sec)
+
+
+Q7. Write a query to get the maximum and minimum salary from employees table.
+
+mysql> select max(salary) "maximum salary" , min(salary) "minimum salary" from employees;
++----------------+----------------+
+| maximum salary | minimum salary |
++----------------+----------------+
+|       26400.00 |        4620.00 |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+
+Q8. Write a query to get the average salary and number of employees in the employees table.
+
+mysql> select avg(salary) "avarage salary", count(*) "no. of employees" from employees;
++----------------+------------------+
+| avarage salary | no. of employees |
++----------------+------------------+
+|   11858.000000 |               10 |
++----------------+------------------+
+1 row in set (0.00 sec)
+
+
+Q9. Write a query to get the number of employees working with the company.
+
+mysql> select count(*) "no. of employees" from employees;
++------------------+
+| no. of employees |
++------------------+
+|               10 |
++------------------+
+1 row in set (0.01 sec)
+
+
+Q10. Write a query to get the number of jobs available in the employees table
+
+mysql> select count(job_id) "No. of jobs" from employees;
++-------------+
+| No. of jobs |
++-------------+
+|          10 |
++-------------+
+1 row in set (0.00 sec)
+
+
 Q11. Write a query to select first 10 records from a table.
 
 mysql> select * from employees limit 10;
@@ -277,6 +332,7 @@ mysql> select * from employees
 |         100 | Steven     | King      | not available |   5151234567 | 1987-06-17 | AD_PRES | 26400.00 |          0.10 |        200 |            10 |
 +-------------+------------+-----------+---------------+--------------+------------+---------+----------+---------------+------------+---------------+
 1 row in set (0.00 sec)
+
 
 
 
