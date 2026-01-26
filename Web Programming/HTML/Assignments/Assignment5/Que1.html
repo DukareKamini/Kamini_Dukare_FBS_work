@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Form All Input Types</title>
+</head>
+<body>
+
+
+<form action="/submit" method="post" autocomplete="on" enctype="multipart/form-data" target="_blank" name="studentForm">
+
+    <!-- Text Input -->
+    <label>Full Name:</label>
+    <input type="text" name="fullname" placeholder="Enter your name" required minlength="3" maxlength="50">
+    <br><br>
+
+    <!-- Password -->
+    <label>Password:</label>
+    <input type="password" name="password" placeholder="Enter password" required>
+    <br><br>
+
+    <!-- Email -->
+    <label>Email:</label>
+    <input type="email" name="email" placeholder="example@mail.com" required>
+    <br><br>
+
+    <!-- Number -->
+    <label>Age:</label>
+    <input type="number" name="age" min="1" max="100" step="1" value="18">
+    <br><br>
+
+    <!-- Telephone -->
+    <label>Phone:</label>
+    <input type="tel" name="phone" placeholder="9876543210" pattern="[0-9]{10}">
+    <br><br>
+
+    <!-- URL -->
+    <label>Website:</label>
+    <input type="url" name="website" placeholder="https://example.com">
+    <br><br>
+
+    <!-- Search -->
+    <label>Search:</label>
+    <input type="search" name="search" placeholder="Search here">
+    <br><br>
+
+    <!-- Date -->
+    <label>Date of Birth:</label>
+    <input type="date" name="dob">
+    <br><br>
+
+    <!-- Time -->
+    <label>Preferred Time:</label>
+    <input type="time" name="time">
+    <br><br>
+
+    <!-- Datetime-local -->
+    <label>Appointment Date & Time:</label>
+    <input type="datetime-local" name="appointment">
+    <br><br>
+
+    <!-- Month -->
+    <label>Month:</label>
+    <input type="month" name="month">
+    <br><br>
+
+    <!-- Week -->
+    <label>Week:</label>
+    <input type="week" name="week">
+    <br><br>
+
+    <!-- Color -->
+    <label>Favorite Color:</label>
+    <input type="color" name="color">
+    <br><br>
+
+    <!-- Range -->
+    <label>Experience Level (1-10):</label>
+    <input type="range" name="experience" min="1" max="10">
+    <br><br>
+
+    <!-- Radio Buttons -->
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="male"> Male
+    <input type="radio" name="gender" value="female"> Female
+    <input type="radio" name="gender" value="other"> Other
+    <br><br>
+
+    <!-- Checkboxes -->
+    <label>Skills:</label>
+    <input type="checkbox" name="skills" value="html"> HTML
+    <input type="checkbox" name="skills" value="css"> CSS
+    <input type="checkbox" name="skills" value="js"> JavaScript
+    <br><br>
+
+    <!-- File Upload -->
+    <label>Upload Resume:</label>
+    <input type="file" name="resume" accept=".pdf,.doc">
+    <br><br>
+
+    <!-- Hidden -->
+    <input type="hidden" name="userid" value="12345">
+
+    <!-- Image Submit Button -->
+    <label>Submit with Image:</label>
+    <input type="image" src="https://via.placeholder.com/80x30" alt="Submit">
+    <br><br>
+
+    <!-- Buttons -->
+    <input type="submit" value="Submit Form">
+    <input type="reset" value="Reset Form">
+    <input type="button" value="Click Me" onclick="alert('Button clicked!')">
+
+</form>
+
+</body>
+</html>
